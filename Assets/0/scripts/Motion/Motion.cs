@@ -65,11 +65,6 @@ public class Motion : MonoBehaviour
 	}
 
 	
-	void OnControllerColliderHit()
-	{
-	}
-
-	
 	private void Stop()
 	{
 		isEnabled = false;
