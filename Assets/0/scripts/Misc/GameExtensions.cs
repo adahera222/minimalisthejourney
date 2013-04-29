@@ -1,25 +1,30 @@
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+
 public static class GameExtensions
 {
-	public static bool isTouchingWall (this CharacterController characterController)
+	public static bool isTouchingWall( this CharacterController characterController )
 	{
-		return (characterController.collisionFlags & CollisionFlags.Sides) != 0;
+		return ( characterController.collisionFlags & CollisionFlags.Sides ) != 0;
 	}
-	
-	static readonly System.Random random = new System.Random ();
 
-	public static void Shuffle<T> (this IList<T> list)
+	
+	static readonly System.Random random = new System.Random();
+
+
+	public static void Shuffle<T>( this IList<T> list )
 	{
 		int n = list.Count;
-		while (n > 1) {
+		while ( n > 1 )
+		{
 			n--;
-			int k = random.Next (n + 1);
-			T value = list [k];
-			list [k] = list [n];
-			list [n] = value;
+			int k = random.Next(n + 1);
+			T value = list[ k ];
+			list[ k ] = list[ n ];
+			list[ n ] = value;
 		}
 	}
 	
@@ -31,15 +36,15 @@ public static class GameExtensions
 	/// <param name="type">The enum value you want to test</param>
 	/// <param name="value">Flag Enum Value you're looking for</param>
 	/// <returns>True if the type has value bit set</returns>
-	public static bool Has<T> (this System.Enum type, T value)
+	public static bool Has<T>( this System.Enum type, T value )
 	{
-		return (((int)(object)type & (int)(object)value) == (int)(object)value);
+		return ( ( (int) (object) type & (int) (object) value ) == (int) (object) value );
 	}
 	
 	//
 	//checks if a renderer is visible from a specified camera
 	//
-	public static bool IsVisibleFrom(this Renderer renderer, Camera camera)
+	public static bool IsVisibleFrom( this Renderer renderer, Camera camera )
 	{
 		Plane[] planes = GeometryUtility.CalculateFrustumPlanes(camera);
 		return GeometryUtility.TestPlanesAABB(planes, renderer.bounds);

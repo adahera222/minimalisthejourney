@@ -22,14 +22,8 @@ public class ZZZ : MonoBehaviour
 	}
 
 	
-	void Sound3DInterpolation()
-	{
-		// float volume =  Vector3.Distance( transform.position,  )
-	}
-
-	
 	void OnBecameInvisible()
 	{
-		transform.position = new Vector3(-5f, -0.5f, 0f);
+		Messenger.Broadcast(CheckPointEvent.Respawn, this.gameObject);
 	}
 }

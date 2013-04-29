@@ -18,7 +18,7 @@ public class God : MonoBehaviour
 	
 	void Start()
 	{
-		InvokeRepeating("Thunder", 5f, 5f);
+		InvokeRepeating("Thunder", 0f, 5f);
 	}
 
 	
