@@ -1,14 +1,17 @@
+
 using UnityEngine;
 using System.Collections;
 
+
 public class ZZZ : MonoBehaviour
 {
-	void Start ()
+	void Start()
 	{
-		Messenger.Broadcast (CameraEvent.Focus, transform);
+		Messenger.Broadcast(CameraEvent.Focus, transform);
 	}
+
 	
-	void Update ()
+	void Update()
 	{
 		Vector3 currentPosition = transform.position;
 		
@@ -16,18 +19,17 @@ public class ZZZ : MonoBehaviour
 		
 		transform.position = currentPosition;
 		
-		//
-		// check for the sound level
-		//
 	}
+
 	
 	void Sound3DInterpolation()
 	{
 		// float volume =  Vector3.Distance( transform.position,  )
 	}
+
 	
-	void OnBecameInvisible ()
+	void OnBecameInvisible()
 	{
-		transform.position = Vector3.zero;
+		transform.position = new Vector3(-5f, -0.5f, 0f);
 	}
 }

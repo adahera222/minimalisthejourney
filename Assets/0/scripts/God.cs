@@ -1,15 +1,11 @@
+
 using UnityEngine;
 using System.Collections;
 
+
 public class God : MonoBehaviour
 {
-	private int minTime = 3;
-	
-	private int maxTime = 6;
-	
 	private float thunderTime = 1f;
-	
-	private float[] thunderTimeList = {0.7f, 1.2f};
 	
 	private float timeSinceStart = 1.1f;
 	
@@ -18,23 +14,22 @@ public class God : MonoBehaviour
 	public int thunderBurstCounter = 0;
 	
 	private bool doThunders = false;
+
 	
-	private float thunderInvokeTime = 4f;
-	
-	void Start ()
+	void Start()
 	{
-		//float thunderInvokeTime = Random.Range (minTime, maxTime);
-		
-		InvokeRepeating("Thunder",4f,4f);
+		InvokeRepeating("Thunder", 5f, 5f);
 	}
+
 	
 	void Update()
 	{
-		if(doThunders)
+		if ( doThunders )
 		{
 			ApplyThunderEffect();
 		}
 	}
+
 	
 	void ApplyThunderEffect()
 	{
@@ -42,11 +37,11 @@ public class God : MonoBehaviour
 		// the effect will be executed when the timeSinceStart is below the thunder time
 		//
 		
-		if(timeSinceStart <= thunderTime)
+		if ( timeSinceStart <= thunderTime )
 		{
 			timeSinceStart += Time.deltaTime;
 			
-			Camera.mainCamera.backgroundColor = Color.Lerp(Color.white, Color.black, timeSinceStart );
+			Camera.mainCamera.backgroundColor = Color.Lerp(Color.white, Color.black, timeSinceStart);
 		}
 		else
 		{
@@ -56,7 +51,7 @@ public class God : MonoBehaviour
 			
 			Camera.mainCamera.backgroundColor = Color.black;
 			
-			if(thunderBurstCounter < thunderBursts)
+			if ( thunderBurstCounter < thunderBursts )
 			{
 				thunderBurstCounter++;
 				
@@ -68,8 +63,9 @@ public class God : MonoBehaviour
 			}
 		}
 	}
+
 	
-	protected void Thunder ()
+	protected void Thunder()
 	{
 		Messenger.Broadcast(ThunderEvent.Thunder);
 		

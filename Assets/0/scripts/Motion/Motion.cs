@@ -1,96 +1,98 @@
+
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(CharacterController))]
+
+[RequireComponent(typeof ( CharacterController ))]
 public class Motion : MonoBehaviour
 {
 	public bool isEnabled = true;
+
 	private CharacterController control;
+
 	private Vector3 movement = Vector3.zero;
+
 	private float gravity = 10f;
+
 	private float groundSpeed = 1.75f;
+
 	private float jumpSpeed = 3.5f;
-	private float extraJumps = 1;
-	private float jumps = 0;
 	
-	void Awake ()
+	private int jumps = 0;
+
+	
+	void Awake()
 	{
-		Messenger.AddListener (MotionEvent.Stop, Stop);		
-		Messenger.AddListener (MotionEvent.Jump, Jump);
+		Messenger.AddListener(MotionEvent.Stop, Stop);		
+
+		Messenger.AddListener(MotionEvent.Jump, Jump);
 	}
+
 	
-	void Start ()
+	void Start()
 	{
-		control = GetComponent<CharacterController> ();
+		control = GetComponent<CharacterController>();
 	}
+
 	
-	void Update ()
+	void Update()
 	{
 		float yBackup = movement.y;
 		
-		if (isEnabled) {
-			movement = new Vector3 (Input.GetAxis ("Horizontal"), 0, 0);
-		}
-		
-		if(control.isGrounded)
+		if ( isEnabled )
 		{
-			//move = new Vector3(1f, 0f, 0f);
-			
-			//movement.y = 0;
-			
-			
+			movement = new Vector3( Input.GetAxis("Horizontal"), 0, 0 );
 		}
 		
-		movement = transform.TransformDirection (movement);
+		movement = transform.TransformDirection(movement);
+		
 		movement *= groundSpeed;
 		
 		movement.y = yBackup;
 		
-		if (!control.isGrounded) {
-			//Mathf.Clamp(-100,
-			movement.y -=  gravity * Time.deltaTime;
-		} else {
-			
+		if ( !control.isGrounded )
+		{
+			movement.y -= gravity * Time.deltaTime;
+		}
+		else
+		{
 			jumps = 0;
-		
-			//
-			//
-			//
-			
-			//yBackup = 0f;
-			
-			//movement.y = 0f;
-			
-			//movement.y -=  3.5f;
 		}
 		
-		control.Move (movement * Time.deltaTime);
+		control.Move(movement * Time.deltaTime);
 		
 		Debug.Log(movement + " :::: ");
 	}
+
 	
-	void OnControllerColliderHit ()
+	void OnControllerColliderHit()
 	{
 	}
+
 	
-	private void Stop ()
+	private void Stop()
 	{
 		isEnabled = false;
+		
 		movement = Vector3.zero;
 	}
 
-	private void Play ()
+
+	private void Play()
 	{
 		isEnabled = true;
 	}
 
-	private void Jump ()
+
+	private void Jump()
 	{
-		if (jumps >= extraJumps) {
+		if ( jumps > 0 )
+		{
 			return;
 		}
 		
 		movement.y = jumpSpeed;
+		
 		jumps += 1;
 	}
 }

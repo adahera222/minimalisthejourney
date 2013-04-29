@@ -1,31 +1,36 @@
+
 using UnityEngine;
 using System.Collections;
 
+
 public class QQQ : MonoBehaviour
 {
-	void Start ()
+	void Start()
 	{
-		InvokeRepeating ("RandomRotation", 0, 1);
+		InvokeRepeating("RandomRotation", 0, 1);
 	}
+
 	
 	void Update()
 	{
-		if( transform.renderer.IsVisibleFrom(Camera.mainCamera) )
+		if ( transform.renderer.IsVisibleFrom(Camera.mainCamera) )
 		{
-			Invoke ("Fin", 0.5f);
+			Invoke("Fin", 0.5f);
 		}
 	}
+
 	
-	private void Fin ()
+	private void Fin()
 	{
-		Messenger.Broadcast (CameraEvent.Focus, transform);
+		Messenger.Broadcast(CameraEvent.Focus, transform);
 	
-		Messenger.Broadcast (MotionEvent.Stop);
+		Messenger.Broadcast(MotionEvent.Stop);
 		
-		Messenger.Broadcast (KeyboardInputEvent.Stop);
+		Messenger.Broadcast(KeyboardInputEvent.Stop);
 	}
+
 	
-	private void RandomRotation ()
+	private void RandomRotation()
 	{
 		transform.rotation = Random.rotation;
 	}
