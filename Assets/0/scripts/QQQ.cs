@@ -8,15 +8,20 @@ public class QQQ : MonoBehaviour
 		InvokeRepeating ("RandomRotation", 0, 1);
 	}
 	
-	void OnBecameVisible ()
+	void Update()
 	{
-		Invoke ("Fin", 0.5f);
+		if( transform.renderer.IsVisibleFrom(Camera.mainCamera) )
+		{
+			Invoke ("Fin", 0.5f);
+		}
 	}
 	
 	private void Fin ()
 	{
 		Messenger.Broadcast (CameraEvent.Focus, transform);
+	
 		Messenger.Broadcast (MotionEvent.Stop);
+		
 		Messenger.Broadcast (KeyboardInputEvent.Stop);
 	}
 	

@@ -11,8 +11,19 @@ public class ZZZ : MonoBehaviour
 	void Update ()
 	{
 		Vector3 currentPosition = transform.position;
+		
 		currentPosition.z = 0;
+		
 		transform.position = currentPosition;
+		
+		//
+		// check for the sound level
+		//
+	}
+	
+	void Sound3DInterpolation()
+	{
+		// float volume =  Vector3.Distance( transform.position,  )
 	}
 	
 	void OnBecameInvisible ()
