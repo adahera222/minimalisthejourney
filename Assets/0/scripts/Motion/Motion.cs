@@ -32,21 +32,41 @@ public class Motion : MonoBehaviour
 			movement = new Vector3 (Input.GetAxis ("Horizontal"), 0, 0);
 		}
 		
+		if(control.isGrounded)
+		{
+			//move = new Vector3(1f, 0f, 0f);
+			
+			//movement.y = 0;
+			
+			
+		}
+		
 		movement = transform.TransformDirection (movement);
 		movement *= groundSpeed;
 		
 		movement.y = yBackup;
 		
 		if (!control.isGrounded) {
-			movement.y -= gravity * Time.deltaTime;
+			//Mathf.Clamp(-100,
+			movement.y -=  gravity * Time.deltaTime;
 		} else {
+			
 			jumps = 0;
+		
+			//
+			//
+			//
 			
-			// 
+			//yBackup = 0f;
 			
+			//movement.y = 0f;
+			
+			//movement.y -=  3.5f;
 		}
 		
 		control.Move (movement * Time.deltaTime);
+		
+		Debug.Log(movement + " :::: ");
 	}
 	
 	void OnControllerColliderHit ()

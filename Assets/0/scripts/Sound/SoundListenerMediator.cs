@@ -3,25 +3,33 @@ using System.Collections;
 
 public class SoundListenerMediator : MonoBehaviour 
 {
-	private Transform audioListener;
+	public AudioClip clipStart;
 	
-	void Awake()
-	{
-		Messenger.Broadcast<transform>(SoundEvent.SetListener, SetListenerEventHandler);
-	}
+	public AudioClip clipLoop;
 	
-	/// <summary>
-	/// Sets the listener of this audiosource.
-	/// </summary>
-	void SetListenerEventHandler( Transform transform )
+	public AudioSource audioSourceIntro;
+	
+	public AudioSource audioSourceLoop;
+	
+	void Start()
 	{
-		audioListener = transform;
+		audioSourceIntro.Play();
 	}
 	
 	void Update()
 	{
-		AudioSource audioSource = new AudioSource();
+		// Debug.Log(audioSourceIntro.isPlaying);
 		
-		audioSource.volume = Mathf.Lerp(0, 1, Vector3.Distance(audioListener.position, this.transform.position));
+		if(!audioSourceIntro.isPlaying)
+		{
+			//
+			// play the loop part
+			//
+			
+			if(!audioSourceLoop.isPlaying)
+			{
+				audioSourceLoop.Play();
+			}
+		}
 	}
 }
