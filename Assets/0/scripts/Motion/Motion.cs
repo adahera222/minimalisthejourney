@@ -49,7 +49,7 @@ public class Motion : MonoBehaviour
 		movement *= groundSpeed;
 		
 		movement.y = yBackup;
-		
+
 		if ( !control.isGrounded )
 		{
 			movement.y -= gravity * Time.deltaTime;
@@ -60,8 +60,6 @@ public class Motion : MonoBehaviour
 		}
 		
 		control.Move(movement * Time.deltaTime);
-		
-		Debug.Log(movement + " :::: ");
 	}
 
 	

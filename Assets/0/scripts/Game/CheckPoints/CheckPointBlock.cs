@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 
 
-public class CheckPoint : MonoBehaviour
+public class CheckPointBlock : MonoBehaviour
 {
 	void OnTriggerEnter()
 	{
