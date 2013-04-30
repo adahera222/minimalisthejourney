@@ -19,6 +19,8 @@ public class Motion : MonoBehaviour
 	private float jumpSpeed = 3.5f;
 	
 	private int jumps = 0;
+	
+	private bool jumpFlag = false;
 
 	
 	void Awake()
@@ -47,19 +49,30 @@ public class Motion : MonoBehaviour
 		movement = transform.TransformDirection(movement);
 		
 		movement *= groundSpeed;
-		
+				
 		movement.y = yBackup;
-
-		if ( !control.isGrounded )
-		{
-			movement.y -= gravity * Time.deltaTime;
-		}
-		else
+			
+		if ( control.isGrounded )
 		{
 			jumps = 0;
 		}
+		else
+		{
+			movement.y -= gravity * Time.deltaTime;
+		}
 		
 		control.Move(movement * Time.deltaTime);
+	}
+
+	
+	void OnControllerColliderHit( ControllerColliderHit hit )
+	{
+		if ( jumpFlag && transform.position.y > hit.point.y )
+		{
+			movement = Vector3.zero;
+			
+			jumpFlag = false;
+		}
 	}
 
 	
@@ -79,6 +92,8 @@ public class Motion : MonoBehaviour
 
 	private void Jump()
 	{
+		jumpFlag = true;
+		
 		if ( jumps > 0 )
 		{
 			return;
