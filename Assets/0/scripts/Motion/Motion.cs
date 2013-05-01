@@ -18,16 +18,18 @@ public class Motion : MonoBehaviour
 
 	private float jumpSpeed = 3.5f;
 	
+	private float extraJumps = 1;
+	
 	private int jumps = 0;
 	
-	private bool jumpFlag = false;
-
+	private bool resetGravity = false;
+	
 	
 	void Awake()
 	{
-		Messenger.AddListener(MotionEvent.Stop, Stop);		
+		Messenger.AddListener( MotionEvent.Stop, Stop );		
 
-		Messenger.AddListener(MotionEvent.Jump, Jump);
+		Messenger.AddListener( MotionEvent.Jump, Jump );
 	}
 
 	
@@ -43,16 +45,16 @@ public class Motion : MonoBehaviour
 		
 		if ( isEnabled )
 		{
-			movement = new Vector3( Input.GetAxis("Horizontal"), 0, 0 );
+			movement = new Vector3( Input.GetAxis( "Horizontal" ), 0, 0 );
 		}
-		
-		movement = transform.TransformDirection(movement);
+				
+		movement = transform.TransformDirection( movement );
 		
 		movement *= groundSpeed;
 				
 		movement.y = yBackup;
 			
-		if ( control.isGrounded )
+		if ( control.isGrounded && !resetGravity )
 		{
 			jumps = 0;
 		}
@@ -61,17 +63,17 @@ public class Motion : MonoBehaviour
 			movement.y -= gravity * Time.deltaTime;
 		}
 		
-		control.Move(movement * Time.deltaTime);
+		control.Move( movement * Time.deltaTime );
 	}
 
 	
 	void OnControllerColliderHit( ControllerColliderHit hit )
 	{
-		if ( jumpFlag && transform.position.y > hit.point.y )
+		if ( transform.position.y > hit.point.y )
 		{
 			movement = Vector3.zero;
 			
-			jumpFlag = false;
+			resetGravity = false;
 		}
 	}
 
@@ -83,7 +85,7 @@ public class Motion : MonoBehaviour
 		movement = Vector3.zero;
 	}
 
-
+	
 	private void Play()
 	{
 		isEnabled = true;
@@ -92,9 +94,9 @@ public class Motion : MonoBehaviour
 
 	private void Jump()
 	{
-		jumpFlag = true;
+		resetGravity = true;
 		
-		if ( jumps > 0 )
+		if ( jumps > extraJumps )
 		{
 			return;
 		}

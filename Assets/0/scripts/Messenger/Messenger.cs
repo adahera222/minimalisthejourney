@@ -35,10 +35,10 @@ static internal class Messenger
 	#region Internal variables
  
 	//Disable the unused variable warning
-#pragma warning disable 0414
+	#pragma warning disable 0414
 	//Ensures that the MessengerHelper will be created automatically upon start of the game.
 	static private MessengerHelper messengerHelper = ( new GameObject( "MessengerHelper" ) ).AddComponent< MessengerHelper >();
-#pragma warning restore 0414
+	#pragma warning restore 0414
  
 	static public Dictionary<string, Delegate> eventTable = new Dictionary<string, Delegate>();
  
@@ -49,9 +49,9 @@ static internal class Messenger
 	//Marks a certain message as permanent.
 	static public void MarkAsPermanent( string eventType )
 	{
-#if LOG_ALL_MESSAGES
+		#if LOG_ALL_MESSAGES
 		Debug.Log("Messenger MarkAsPermanent \t\"" + eventType + "\"");
-#endif
+		#endif
  
 		permanentMessages.Add(eventType);
 	}
@@ -59,9 +59,9 @@ static internal class Messenger
  
 	static public void Cleanup()
 	{
-#if LOG_ALL_MESSAGES
+		#if LOG_ALL_MESSAGES
 		Debug.Log("MESSENGER Cleanup. Make sure that none of necessary listeners are removed.");
-#endif
+		#endif
  
 		List< string > messagesToRemove = new List<string>();
  
@@ -105,9 +105,9 @@ static internal class Messenger
 	#region Message logging and exception throwing
 	static public void OnListenerAdding( string eventType, Delegate listenerBeingAdded )
 	{
-#if LOG_ALL_MESSAGES || LOG_ADD_LISTENER
+		#if LOG_ALL_MESSAGES || LOG_ADD_LISTENER
 		Debug.Log("MESSENGER OnListenerAdding \t\"" + eventType + "\"\t{" + listenerBeingAdded.Target + " -> " + listenerBeingAdded.Method + "}");
-#endif
+		#endif
  
 		if ( !eventTable.ContainsKey(eventType) )
 		{
@@ -124,9 +124,9 @@ static internal class Messenger
  
 	static public void OnListenerRemoving( string eventType, Delegate listenerBeingRemoved )
 	{
-#if LOG_ALL_MESSAGES
+		#if LOG_ALL_MESSAGES
 		Debug.Log("MESSENGER OnListenerRemoving \t\"" + eventType + "\"\t{" + listenerBeingRemoved.Target + " -> " + listenerBeingRemoved.Method + "}");
-#endif
+		#endif
  
 		if ( eventTable.ContainsKey(eventType) )
 		{
@@ -159,12 +159,12 @@ static internal class Messenger
  
 	static public void OnBroadcasting( string eventType )
 	{
-#if REQUIRE_LISTENER
+		#if REQUIRE_LISTENER
 		if ( !eventTable.ContainsKey(eventType) )
 		{
 			throw new BroadcastException( string.Format("Broadcasting message \"{0}\" but no listener found. Try marking the message with Messenger.MarkAsPermanent.", eventType) );
 		}
-#endif
+		#endif
 	}
 
  
@@ -259,9 +259,9 @@ static internal class Messenger
 	//No parameters
 	static public void Broadcast( string eventType )
 	{
-#if LOG_ALL_MESSAGES || LOG_BROADCAST_MESSAGE
+		#if LOG_ALL_MESSAGES || LOG_BROADCAST_MESSAGE
 		Debug.Log("MESSENGER\t" + System.DateTime.Now.ToString("hh:mm:ss.fff") + "\t\t\tInvoking \t\"" + eventType + "\"");
-#endif
+		#endif
 		OnBroadcasting(eventType);
  
 		Delegate d;
@@ -283,9 +283,9 @@ static internal class Messenger
 	//Single parameter
 	static public void Broadcast<T>( string eventType, T arg1 )
 	{
-#if LOG_ALL_MESSAGES || LOG_BROADCAST_MESSAGE
+		#if LOG_ALL_MESSAGES || LOG_BROADCAST_MESSAGE
 		Debug.Log("MESSENGER\t" + System.DateTime.Now.ToString("hh:mm:ss.fff") + "\t\t\tInvoking \t\"" + eventType + "\"");
-#endif
+		#endif
 		OnBroadcasting(eventType);
  
 		Delegate d;
@@ -307,9 +307,9 @@ static internal class Messenger
 	//Two parameters
 	static public void Broadcast<T, U>( string eventType, T arg1, U arg2 )
 	{
-#if LOG_ALL_MESSAGES || LOG_BROADCAST_MESSAGE
+		#if LOG_ALL_MESSAGES || LOG_BROADCAST_MESSAGE
 		Debug.Log("MESSENGER\t" + System.DateTime.Now.ToString("hh:mm:ss.fff") + "\t\t\tInvoking \t\"" + eventType + "\"");
-#endif
+		#endif
 		OnBroadcasting(eventType);
  
 		Delegate d;
@@ -331,9 +331,9 @@ static internal class Messenger
 	//Three parameters
 	static public void Broadcast<T, U, V>( string eventType, T arg1, U arg2, V arg3 )
 	{
-#if LOG_ALL_MESSAGES || LOG_BROADCAST_MESSAGE
+		#if LOG_ALL_MESSAGES || LOG_BROADCAST_MESSAGE
 		Debug.Log("MESSENGER\t" + System.DateTime.Now.ToString("hh:mm:ss.fff") + "\t\t\tInvoking \t\"" + eventType + "\"");
-#endif
+		#endif
 		OnBroadcasting(eventType);
  
 		Delegate d;

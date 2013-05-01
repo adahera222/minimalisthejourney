@@ -10,9 +10,9 @@ public class KeyboardInput : MonoBehaviour
 	
 	void Awake()
 	{
-		Messenger.AddListener(KeyboardInputEvent.Stop, Stop);
+		Messenger.AddListener( KeyboardInputEvent.Stop, Stop );
 		
-		Messenger.AddListener(KeyboardInputEvent.Play, Play);
+		Messenger.AddListener( KeyboardInputEvent.Play, Play );
 	}
 
 	
@@ -41,9 +41,9 @@ public class KeyboardInput : MonoBehaviour
 
 	private void Detect()
 	{
-		if ( Input.GetKeyDown(KeyCode.Space) )
+		if ( Input.GetKeyDown( KeyCode.Space ) )
 		{
-			Messenger.Broadcast(MotionEvent.Jump);
+			Messenger.Broadcast( MotionEvent.Jump );
 		}
 	}
 	

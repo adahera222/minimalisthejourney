@@ -18,7 +18,7 @@ public class God : MonoBehaviour
 	
 	void Start()
 	{
-		InvokeRepeating("Thunder", 0f, 5f);
+		Invoke("Thunder", 0f);
 	}
 
 	
@@ -74,5 +74,9 @@ public class God : MonoBehaviour
 		thunderBurstCounter = 0;
 		
 		doThunders = true;
+		
+		int nextThunder = Random.Range(3, 6);
+		
+		Invoke("Thunder", nextThunder);
 	}
 }
