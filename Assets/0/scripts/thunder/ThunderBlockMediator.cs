@@ -18,6 +18,10 @@ public class ThunderBlockMediator : MonoBehaviour
 	{
 		timeSinceStart = 0f;
 	}
+	
+	//
+	//
+	//
 
 	
 	void Update()
